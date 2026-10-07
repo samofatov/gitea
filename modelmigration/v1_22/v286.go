@@ -122,7 +122,7 @@ func expandHashReferencesToSha256(x base.EngineMigration) error {
 // below its declared size: the data is copied through a temporary column, the original
 // column is dropped and the copy renamed back. The index drops and re-creations around
 // the alter loop keep the columns free of index references. DDL and DML cannot share a
-// transaction on Firebird (§12.8 п.1), so every phase commits before the next begins.
+// transaction on Firebird, so every phase commits before the next begins.
 func expandHashColumnOnFirebird(db *xorm.Session, tableName, colName string) error {
 	phases := [][]string{
 		{fmt.Sprintf("ALTER TABLE `%s` ADD `tmp_expand_hash_col` VARCHAR(64)", tableName)},
